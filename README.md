@@ -12,5 +12,5 @@ touch .env
 
 .envに書き込み
 ```
-TOKEN=<botのTOKEN>
+DISCORD_BOT_SECRET=<botのTOKEN>
 ```
