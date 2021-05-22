@@ -33,7 +33,7 @@ async def on_message(message):
     await message.channel.edit(position=0)
     print(message.channel.name)
   
-  bot.process_commands(message)
+  await bot.process_commands(message)
 
 async def on_message(self, message):
   if message.author.bot:
@@ -74,7 +74,7 @@ async def on_message(self, message):
 
     await message.reply(response, mention_author=True)
 
-  bot.process_commands(message)
+  await bot.process_commands(message)
 
 @bot.command()
 async def detect(ctx, arg):
