@@ -20,7 +20,7 @@ async def on_ready():
 @bot.event
 async def on_message(message):
   if message.author.bot:
-      return
+    return
   await dispand(message)
 
   if message.channel.category_id == 712220796449456238:
@@ -113,49 +113,49 @@ async def trans(ctx, arg):
 
 icon_size = (247, 192)
 icon_positions = [
-    (396, 80), (724, 80), (1052, 80), (1380, 80), (1708, 80),
-    (396, 292), (724, 293), (1052, 294), (1380, 295), (1708, 296)
+  (396, 80), (724, 80), (1052, 80), (1380, 80), (1708, 80),
+  (396, 292), (724, 293), (1052, 294), (1380, 295), (1708, 296)
 ]
 
 #returns list of names failed to get
 def create_image(names):
-    i = 0
-    failed_names = []
-    for name in names:
+  i = 0
+  failed_names = []
+  for name in names:
         
-        icon = img_searcher.search_icon(name)
-        if icon != None:
-            resized_icon = icon.resize(icon_size)
-            bg.paste(resized_icon, icon_positions[i])
-            i += 1
-        else:
-            failed_names.append(name)
+    icon = img_searcher.search_icon(name)
+    if icon != None:
+      resized_icon = icon.resize(icon_size)
+      bg.paste(resized_icon, icon_positions[i])
+      i += 1
+    else:
+      failed_names.append(name)
     
-    return failed_names
+  return failed_names
 
 @bot.command()
 async def hensei(ctx, *names):
-    if len(names) == 0:
-        await ctx.send("```キャラクターの名前を入力してください```")
-        return
-    if len(names) > 10:
-        await ctx.send("```キャラクターの数を10体までにしてください```")
-        return
+  if len(names) == 0:
+    await ctx.send("```キャラクターの名前を入力してください```")
+    return
+  if len(names) > 10:
+    await ctx.send("```キャラクターの数を10体までにしてください```")
+    return
 
-    wait_message = await ctx.send("```少々お待ちください…```")
-    global bg
-    bg = Image.open("編成画面2.jpg").convert("RGBA")
+  wait_message = await ctx.send("```少々お待ちください…```")
+  global bg
+  bg = Image.open("hensei_gamen.jpeg").convert("RGBA")
     
-    failed_names = create_image(names)
-    message_content = ""
-    if len(failed_names) == 0:
-        message_content = "```" + ctx.author.name + "の編成:```"
-    else:
-        message_content = "```" + ctx.author.name + "さん、" + "、".join(failed_names) + "の画像が見つかりませんでした```"
+  failed_names = create_image(names)
+  message_content = ""
+  if len(failed_names) == 0:
+    message_content = "```" + ctx.author.name + "の編成:```"
+  else:
+    message_content = "```" + ctx.author.name + "さん、" + "、".join(failed_names) + "の画像が見つかりませんでした```"
     
-    bg.save("new_image.png")
-    await ctx.send(content = message_content, file = discord.File("new_image.png"))
-    await wait_message.delete()
+  bg.save("new_image.png")
+  await ctx.send(content = message_content, file = discord.File("new_image.png"))
+  await wait_message.delete()
 
 keep_alive()
 token = os.environ.get("DISCORD_BOT_SECRET")
